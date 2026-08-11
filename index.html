@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#140912">
+<title>إلك ❤️</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  font-family: Tahoma, Arial, sans-serif;
+  background:#09050b;
+  color:#fff;
+  -webkit-tap-highlight-color:transparent;
+}
+.screen{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  padding:22px;opacity:0;pointer-events:none;transition:opacity .7s ease;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(255,77,136,.22),transparent 28%),
+    radial-gradient(circle at 80% 70%,rgba(255,183,77,.12),transparent 30%),
+    linear-gradient(145deg,#0b0610,#1b0714 55%,#09050b);
+}
+.screen.active{opacity:1;pointer-events:auto}
+.wrap{width:min(92vw,520px);text-align:center}
+.eyebrow{font-size:13px;letter-spacing:2px;opacity:.7;margin-bottom:16px}
+h1{font-size:clamp(30px,9vw,58px);margin:0 0 14px;line-height:1.15}
+p{font-size:clamp(17px,5vw,23px);line-height:1.8;margin:0 auto 25px;color:#ffeaf2}
+button{
+  border:0;border-radius:999px;padding:15px 28px;font-size:18px;font-weight:700;
+  color:#fff;background:linear-gradient(135deg,#ff3d78,#ff759f);
+  box-shadow:0 12px 35px rgba(255,61,120,.28);cursor:pointer;
+}
+button:active{transform:scale(.97)}
+.heart{
+  width:92px;height:92px;margin:0 auto 25px;position:relative;
+  transform:rotate(-45deg);background:#ff477f;border-radius:12px;
+  animation:beat 1.1s infinite;box-shadow:0 0 55px rgba(255,71,127,.5)
+}
+.heart:before,.heart:after{content:"";position:absolute;width:92px;height:92px;background:#ff477f;border-radius:50%}
+.heart:before{top:-46px;left:0}.heart:after{left:46px;top:0}
+@keyframes beat{0%,100%{transform:rotate(-45deg) scale(1)}50%{transform:rotate(-45deg) scale(1.12)}}
+.card{
+  padding:30px 22px;border:1px solid rgba(255,255,255,.13);border-radius:28px;
+  background:rgba(255,255,255,.07);backdrop-filter:blur(14px);
+  box-shadow:0 20px 60px rgba(0,0,0,.35)
+}
+.phrase{font-size:clamp(25px,7vw,42px);font-weight:800;line-height:1.45;min-height:150px;display:flex;align-items:center;justify-content:center}
+.small{font-size:14px;opacity:.55;margin-top:15px}
+.floaters{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.f{position:absolute;bottom:-60px;font-size:22px;animation:rise linear forwards;opacity:.85}
+@keyframes rise{to{transform:translateY(-115vh) rotate(360deg);opacity:0}}
+.progress{height:4px;border-radius:5px;background:rgba(255,255,255,.12);overflow:hidden;margin:0 auto 22px;width:90%}
+.bar{height:100%;width:0;background:#ff5a8b;transition:width .5s}
+.final{overflow:auto;padding:20px 14px}
+.final .wrap{width:min(94vw,700px)}
+.final img{
+  display:block;width:100%;height:auto;max-height:78vh;object-fit:contain;
+  border-radius:18px;box-shadow:0 18px 70px rgba(0,0,0,.55);
+  border:1px solid rgba(255,255,255,.12)
+}
+.final h2{font-size:25px;margin:0 0 16px}
+.final .note{font-size:15px;opacity:.75;margin-top:14px}
+@media (prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<div class="floaters" id="floaters"></div>
+
+<section class="screen active" id="s0">
+  <div class="wrap">
+    <div class="heart"></div>
+    <div class="eyebrow">رسالة صغيرة… بس من القلب</div>
+    <h1>في مفاجأة إلك ❤️</h1>
+    <p>اضغط الزر وخلي الباقي عليّ…</p>
+    <button onclick="start()">افتح المفاجأة ✨</button>
+  </div>
+</section>
+
+<section class="screen" id="s1">
+  <div class="wrap">
+    <div class="card">
+      <div class="progress"><div class="bar"></div></div>
+      <div class="phrase" id="phrase"></div>
+      <div class="small">اضغط للمتابعة 💗</div>
+    </div>
+  </div>
+</section>
+
+<section class="screen final" id="final">
+  <div class="wrap">
+    <h2>وآخر شي… إلك هالرسالة ❤️</h2>
+    <img src="1000763508.png" alt="الرسالة الرومانسية">
+    <div class="note">خليها ذكرى حلوة بينكم 🤍</div>
+  </div>
+</section>
+
+<script>
+const phrases = [
+  "وجودك بحياتي مو صدفة… أنت أجمل صدفة ❤️",
+  "كل مرة بشتاقلك، بحس إن قلبي بيعرف اسمك أكتر.",
+  "لو فيني أختار من جديد… رح أختارك كل مرة. 💗",
+  "أنت الشخص اللي بوجوده كل شي بصير أهدى وأحلى.",
+  "وبس… في كلمة وحدة بتكفي: بحبك. ❤️"
+];
+let i=0;
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function start(){
+  i=0;
+  show('s1');
+  render();
+  burst();
+}
+function render(){
+  document.getElementById('phrase').textContent=phrases[i];
+  document.querySelector('.bar').style.width=((i+1)/phrases.length*100)+'%';
+}
+document.getElementById('s1').addEventListener('click',()=>{
+  i++;
+  if(i<phrases.length){ render(); burst(); }
+  else { show('final'); burst(22); }
+});
+function burst(n=10){
+  const box=document.getElementById('floaters');
+  for(let k=0;k<n;k++){
+    const e=document.createElement('span');
+    e.className='f';
+    e.textContent=['❤','♡','✨','💗','🌸'][Math.floor(Math.random()*5)];
+    e.style.left=Math.random()*100+'vw';
+    e.style.fontSize=(16+Math.random()*20)+'px';
+    e.style.animationDuration=(4+Math.random()*4)+'s';
+    box.appendChild(e);
+    setTimeout(()=>e.remove(),8500);
+  }
+}
+setInterval(()=>burst(2),1800);
+</script>
+</body>
+</html>
